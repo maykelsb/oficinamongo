@@ -1,5 +1,5 @@
 # Oficina Mongo
-> Instalação
-> Configurações iniciais
-> Documentos
-> Aplicação
+* Instalação
+* Configurações iniciais
+* Documentos
+* Aplicação
