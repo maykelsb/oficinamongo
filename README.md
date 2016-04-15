@@ -1,5 +1,5 @@
 # Oficina Mongo
-* Instalação
+* [Instalação]
 * Configurações iniciais
 * Documentos
 * Aplicação
