@@ -1,0 +1,11 @@
+<div class="blog-post">
+  <h2 class="blog-post-title">{{ post-title }}</h2>
+  <p class="blog-post-meta">{{ post-date }} by <a href="#">{{ post-author }}</a></p>
+
+  <blockquote>
+    <p>{{ post-text }}</p>
+  </blockquote>
+  {% include 'partials/tags.html.twig' %}
+  {% include 'partials/like.html.twig' %}
+  {% include 'partials/comments.html.twig' %}
+</div>
