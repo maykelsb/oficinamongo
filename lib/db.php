@@ -7,28 +7,24 @@ class Db
 {
     protected static $instance;
 
-    protected $connection;
+    protected $manager;
 
-    protected $dbHost;
-    protected $dbName;
-    protected $dbPort;
-    protected $dbDefaultCollection;
-    protected $dbUsername;
-    protected $dbPassword;
+    protected $dbHost = '127.0.0.1';
+    protected $dbPort = 27017;
+    protected $dbName = 'blog';
+    protected $dbDefaultCollection = 'blog';
 
     private function __construct()
     {
         $this->checaConfiguracaoDb();
         $connString = sprintf(
-            "mongodb://%s:%s@%s:%d/%s",
-            $this->dbUsername,
-            $this->dbPassword,
+            "mongodb://%s:%d/%s",
             $this->dbHost,
             $this->dbPort,
             $this->dbName
         );
 
-        $this->connection = new MongoDB\Driver\Manager($connString);
+        $this->manager = new MongoDB\Driver\Manager($connString);
     }
 
     public static function getInstance()
@@ -42,25 +38,16 @@ class Db
 
     protected function checaConfiguracaoDb()
     {
-        if ($this->dbHost || $this->dbName || $this->dbUsername || $this->dbPassword) {
+        if (!$this->dbHost || !$this->dbName) {
             throw new Exception('As informações de conexão com o banco estão incompletas.');
         }
     }
 
-    public function getCollection($collection = null)
-    {
-        if (empty($collection)) {
-            if (empty($this->dbDefaultCollection)) {
-                throw new Exception('Informe uma collection.');
-            }
+	public function query(MongoDB\Driver\Query $query, $collection = null)
+	{
+		$namespace = "{$this->dbName}."
+		           . (is_null($collection)?$this->dbDefaultCollection:$collection);
 
-            $collection = $this->dbDefaultCollection;
-        }
-
-        return $this
-            ->connection
-            ->{$this->dbName}
-            ->$collection;
-    }
-
+		return $this->manager->executeQuery($namespace, $query);
+	}
 }
