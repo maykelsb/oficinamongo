@@ -1,8 +1,9 @@
 <?php
-ini_set('display_errors', 'on');
+require_once dirname(__FILE__) . '/../app/config.php';
 
-require_once '../vendor/autoload.php';
-require_once '../lib/db.php';
+if (Util::checaRequisicao()) {
+    Util::processaRequisicao();
+}
 
 $twigLoader = new Twig_Loader_Filesystem('../templates/');
 $twig = new Twig_Environment($twigLoader, array(

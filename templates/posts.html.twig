@@ -9,25 +9,25 @@
         <h4 class="modal-title" id="myModalLabel">Nova postagem</h4>
       </div>
       <div class="modal-body">
-        <form id="form-novo-post" method="POST" class="form-horizontal" action='/novo-post'>
+        <form id="form-novo-post" method="POST" class="form-horizontal" action="?acao=novo-post">
           <div class="well">
             <div class="form-group">
               <label class="col-lg-4" for="post_conteudo">Texto:</label>
               <div class="col-lg-8">
-                <textarea name="post[conteudo]" class="form-control" id="post_conteudo"></textarea>
+                <textarea name="dados[conteudo]" class="form-control" id="post_conteudo"></textarea>
               </div>
             </div>
             <div class="form-group">
               <label class="col-lg-4" for="post_tags">Tags:</label>
               <div class="col-lg-8">
-                <input type="text" name="post[tags]" class="form-control" id="post_tags" />
+                <input type="text" name="dados[tags]" class="form-control" id="post_tags" />
                 <p style="text-align:center"><small>(separadas por vírgula)</small></p>
               </div>
             </div>
             <div class="form-group">
               <label class="col-lg-4" for="post_autor">Autor:</label>
               <div class="col-lg-8">
-                <input type="text" name="post[autor]" class="form-control" id="post_autor" />
+                <input type="text" name="dados[autor]" class="form-control" id="post_autor" />
               </div>
             </div>
           </div>
