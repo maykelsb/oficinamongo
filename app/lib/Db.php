@@ -7,6 +7,9 @@ class Db
 {
     protected static $instance;
 
+    /**
+     * @var MongoDB\Driver\Manager Gerenciador da conexão com o MongoDB.
+     */
     protected $manager;
 
     protected $dbHost = '127.0.0.1';
@@ -45,9 +48,35 @@ class Db
 
 	public function query(MongoDB\Driver\Query $query, $collection = null)
 	{
-		$namespace = "{$this->dbName}."
-		           . (is_null($collection)?$this->dbDefaultCollection:$collection);
+		$namespace = "{$this->dbName}." . (is_null($collection)
+            ?$this->dbDefaultCollection
+            :$collection
+        );
 
 		return $this->manager->executeQuery($namespace, $query);
 	}
+
+    protected function command(MongoDB\Driver\Command $command)
+    {
+        $this->manager->executeCommand($this->dbName, $command);
+        return $this;
+    }
+
+    public function inserir(MongoDB\Driver\Command $command)
+    {
+        return $this->command($command);
+    }
+
+    public function alterar(MongoDB\Driver\Command $command)
+    {
+        return $this->command($command);
+    }
+
+    public function criarCommand(array $comando)
+    {
+
+        http://php.net/manual/en/class.mongodb-driver-bulkwrite.php
+
+        return new MongoDB\Driver\Command($comando);
+    }
 }
