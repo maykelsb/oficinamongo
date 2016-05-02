@@ -46,37 +46,48 @@ class Db
         }
     }
 
+    /**
+     *
+     * @param MongoDB\Driver\Query $query
+     * @param type $collection
+     * @return type
+     * @todo Receber apenas o filter e criar o query dentro
+     */
 	public function query(MongoDB\Driver\Query $query, $collection = null)
 	{
-		$namespace = "{$this->dbName}." . (is_null($collection)
-            ?$this->dbDefaultCollection
-            :$collection
+		return $this->manager->executeQuery(
+            $this->getNamespace($collection),
+            $query
         );
-
-		return $this->manager->executeQuery($namespace, $query);
 	}
 
-    protected function command(MongoDB\Driver\Command $command)
+    public function insert(array $data, $collection = null)
     {
-        $this->manager->executeCommand($this->dbName, $command);
-        return $this;
+        $bulk = new MongoDB\Driver\BulkWrite();
+        $bulk->insert($data);
+
+        return $this->manager->executeBulkWrite(
+            $this->getNamespace($collection),
+            $bulk
+        );
     }
 
-    public function inserir(MongoDB\Driver\Command $command)
+    public function update($filter, array $data, $collection = null)
     {
-        return $this->command($command);
+
     }
 
-    public function alterar(MongoDB\Driver\Command $command)
+    public function delete($filter)
     {
-        return $this->command($command);
+
     }
 
-    public function criarCommand(array $comando)
+    protected function getNamespace($collection)
     {
+        if (!is_null($collection)) {
+            return "{$this->dbName}.{$collection}";
+        }
 
-        http://php.net/manual/en/class.mongodb-driver-bulkwrite.php
-
-        return new MongoDB\Driver\Command($comando);
+        return "{$this->dbName}.{$this->dbDefaultCollection}";
     }
 }

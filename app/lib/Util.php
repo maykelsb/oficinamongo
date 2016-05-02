@@ -37,7 +37,6 @@ class Util {
     {
         $acao = self::nomeAcao($_REQUEST['acao']);
         (new Requisicoes())->$acao($_REQUEST['dados']);
-        die();
     }
 
     protected static function nomeAcao($acao)
