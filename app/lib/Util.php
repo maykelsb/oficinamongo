@@ -36,7 +36,13 @@ class Util {
     public static function processaRequisicao()
     {
         $acao = self::nomeAcao($_REQUEST['acao']);
-        (new Requisicoes())->$acao($_REQUEST['dados']);
+        (new Requisicoes())
+            ->$acao(filter_input(
+                INPUT_POST,
+                'dados',
+                FILTER_DEFAULT,
+                FILTER_REQUIRE_ARRAY
+            ));
     }
 
     protected static function nomeAcao($acao)

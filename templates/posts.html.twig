@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block main %}
-  {% include 'partials/post.html.twig' %}
+  {% include 'partials/post.html.twig' with { 'posts': posts } %}
 <div class="modal fade" id="novo-post" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

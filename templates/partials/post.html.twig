@@ -1,11 +1,20 @@
+{% if posts is empty%}
+    <div class="alert alert-info text-center" role="alert">Nenhum grito ainda!? clique logo em "<span class="glyphicon glyphicon-bullhorn"></span> Shout!" ali no topo ;)</div>
+{% endif %}
+
+{% for post in posts %}
 <div class="blog-post">
-  <h2 class="blog-post-title">{{ post-title }}</h2>
-  <p class="blog-post-meta">{{ post-date }} by <a href="#">{{ post-author }}</a></p>
+{#  <p class="blog-post-meta"><a href="?autor={{ post.autor }}">{{ post.autor }}</a> disse</p>#}
+  <p class="blog-post-meta"><a href="#">{{ post.autor }}</a> soltou o verbo em {{ post.data }}</p>
 
   <blockquote>
-    <p>{{ post-text }}</p>
+    <p>{{ post.conteudo }}</p>
   </blockquote>
-  {% include 'partials/tags.html.twig' %}
-  {% include 'partials/like.html.twig' %}
-  {% include 'partials/comments.html.twig' %}
+{#  {% include 'partials/tags.html.twig' with { 'tags': post.tags } %}#}
+{#  {% include 'partials/like.html.twig' with { 'likes': post.likes } %}#}
+{#  {% include 'partials/comments.html.twig' with { 'comentarios': post.comentarios } %}#}
 </div>
+<hr />
+{% endfor %}
+
+

@@ -53,8 +53,10 @@ class Db
      * @return type
      * @todo Receber apenas o filter e criar o query dentro
      */
-	public function query(MongoDB\Driver\Query $query, $collection = null)
+	public function query(array $filter = [], $collection = null)
 	{
+        $query = new MongoDB\Driver\Query($filter);
+
 		return $this->manager->executeQuery(
             $this->getNamespace($collection),
             $query

@@ -2,5 +2,8 @@
     "require": {
         "twig/twig": "~1.0",
         "plasticbrain/php-flash-messages": "^1.0"
+    },
+    "require-dev": {
+        "raveren/kint": "^1.0"
     }
 }

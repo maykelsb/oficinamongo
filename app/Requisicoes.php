@@ -5,7 +5,7 @@ class Requisicoes
     {
         try {
             $db = Db::getInstance();
-            $db->inserir($dados);
+            $db->insert($dados);
 
             $mensagem = 'Registro inserido com sucesso.';
             $metodo = 'success';
@@ -15,7 +15,7 @@ class Requisicoes
         }
 
         Util::getFm()->$metodo($mensagem);
-        header("Location: {$_SERVER['REQUEST_URI']}");
+        header("Location: /");
         die();
     }
 }
