@@ -1,6 +1,11 @@
+{{ dump(tags) }}
 <div class="sidebar-module">
   <h4>Tags</h4>
+  {% if tags is empty %}
+  << sem tags >>
+  {% else %}
   <ol class="list-unstyled">
     <li><a href="/tags/{{ tag-id }}">{{ tag-text }}</a></li>
   </ol>
+  {% endif %}
 </div>

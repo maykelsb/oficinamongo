@@ -38,7 +38,7 @@
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
           {% include 'partials/sidebar/timeline.html.twig' %}
           {% include 'partials/sidebar/authors.html.twig' %}
-          {% include 'partials/sidebar/tags.html.twig' %}
+          {% include 'partials/sidebar/tags.html.twig' with { 'tags': tags } %}
         </div>
       </div>
     </div>
@@ -61,7 +61,7 @@
         $('.shoutbox-about').click(function(){
             bootbox.alert(
             'PHongoDB shoutbox foi construído com o objetivo de apresentar o funcionamento do MongoDB e algumas de suas funções básicas integradas com o PHP.'
-            + '<br />Para mais detalhes e código completo acesse <a href="https://github.com/maykelsb/oficinamongo">maykelsb/oficinamongo</a> no GitHub.'
+            + '<br />Para mais detalhes e código completo acesse <a href="https://github.com/maykelsb/oficinamongo" target="_blank">maykelsb/oficinamongo</a> no GitHub.'
             );
         });
     });

@@ -46,22 +46,24 @@ class Db
         }
     }
 
-    /**
-     *
-     * @param MongoDB\Driver\Query $query
-     * @param type $collection
-     * @return type
-     * @todo Receber apenas o filter e criar o query dentro
-     */
-	public function query(array $filter = [], $collection = null)
+	public function query(array $filter = [], array $options = [], $collection = null)
 	{
-        $query = new MongoDB\Driver\Query($filter);
+        $query = new MongoDB\Driver\Query($filter, $options);
 
 		return $this->manager->executeQuery(
             $this->getNamespace($collection),
             $query
         );
 	}
+//
+//    public function command(array $document)
+//    {
+//        $command = new MongoDB\Driver\Command($document);
+//        return $this->manager->executeCommand(
+//            $this->dbName,
+//            $command
+//        );
+//    }
 
     public function insert(array $data, $collection = null)
     {
@@ -83,6 +85,23 @@ class Db
     {
 
     }
+
+    public function aggregate(array $pipeline, $cursorClass = 'stdClass', $collection = '')
+    {
+        $collection = empty($collection)?$this->dbDefaultCollection:$collection;
+
+        $command = new MongoDB\Driver\Command([
+            'aggregate' => $collection,
+            'pipeline' => $pipeline,
+            'cursor' => new $cursorClass()
+        ]);
+
+        return $this->manager->executeCommand(
+            $this->dbName,
+            $command
+        );
+    }
+
 
     protected function getNamespace($collection)
     {
