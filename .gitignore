@@ -2,3 +2,5 @@ vendor
 
 nbproject/
 temp/
+web/info.php
+web/components/
