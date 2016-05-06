@@ -1,12 +1,13 @@
 <?php
 class Requisicoes
 {
-    public function acaoNovopost(array $dados)
+    public function actionShout(array $dados)
     {
         try {
             $db = Db::getInstance();
 
             $this->tags($dados['tags']);
+            $dados['when'] = $this->getNowUTCDateTime();
             $db->insert($dados);
 
             $mensagem = 'Registro inserido com sucesso.';
@@ -27,5 +28,14 @@ class Requisicoes
         array_walk($tags, function(&$tag){
             $tag = trim($tag);
         });
+    }
+
+    protected function getNowUTCDateTime()
+    {
+        $utc = new MongoDB\BSON\UTCDateTime(
+            (new DateTime())->getTimestamp()
+        );
+
+        return $utc;
     }
 }
