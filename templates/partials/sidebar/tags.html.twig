@@ -1,11 +1,12 @@
-{{ dump(tags) }}
 <div class="sidebar-module">
   <h4>Tags</h4>
   {% if tags is empty %}
-  << sem tags >>
+  << No Taggeg Shout! >>
   {% else %}
   <ol class="list-unstyled">
-    <li><a href="/tags/{{ tag-id }}">{{ tag-text }}</a></li>
+    {% for tag in tags %}
+    <li><a href="/?tags={{ tag.tag }}">{{ tag.tag }} ({{ tag.qtd }})</a></li>
+    {% endfor %}
   </ol>
   {% endif %}
 </div>

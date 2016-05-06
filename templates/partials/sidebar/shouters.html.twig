@@ -1,11 +1,11 @@
 <div class="sidebar-module">
-  <h4>Timeline</h4>
+  <h4>5houters</h4>
   {% if timeline is empty %}
       <p class="text-capitalize"><< no shouts yet! >></p>
   {% else %}
   <ol class="list-unstyled">
-    {% for week in timeline %}
-    <li><a href="/?week={{ week.week }}">{{ week.week }} ({{ week.qtd }})</a></li>
+    {% for shouter in shouters %}
+    <li><a href="/?shouter={{ shouter.name }}">{{ shouter.name }} ({{ shouter.qtd }})</a></li>
     {% endfor %}
   </ol>
   {% endif %}
