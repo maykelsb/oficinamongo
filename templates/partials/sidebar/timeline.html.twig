@@ -4,8 +4,10 @@
       <p class="text-capitalize"><< no shouts yet! >></p>
   {% else %}
   <ol class="list-unstyled">
-    {% for week in timeline %}
-    <li><a href="/?week={{ week.week }}">{{ week.week }} ({{ week.qtd }})</a></li>
+    {% for entry in timeline %}
+      {% set timegap = (entry.when|join('/'))|url_encode %}
+      {% set timegapdisplay = [entry.when.month|monthPtBr, entry.when.year]|join('/') %}
+    <li><a href="/?timegap={{ timegap }}">{{ timegapdisplay }}</a> ({{ entry.qtd }})</li>
     {% endfor %}
   </ol>
   {% endif %}

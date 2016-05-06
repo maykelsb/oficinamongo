@@ -5,7 +5,7 @@
   {% else %}
   <ol class="list-unstyled">
     {% for tag in tags %}
-    <li><a href="/?tags={{ tag.tag }}">{{ tag.tag }} ({{ tag.qtd }})</a></li>
+    <li><a href="/?tags={{ tag.tag }}">{{ tag.tag }}</a> ({{ tag.qtd }})</li>
     {% endfor %}
   </ol>
   {% endif %}

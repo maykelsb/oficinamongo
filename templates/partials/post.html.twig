@@ -4,14 +4,15 @@
 
 {% for post in posts %}
 <div class="blog-post">
-  <p class="blog-post-meta"><a href="?autor={{ post.autor }}">{{ post.autor }}</a> soltou o verbo em {{ post.data }}</p>
+  <p class="blog-post-meta"><a href="?shouter={{ post.shouter }}">{{ post.shouter }}</a> soltou o verbo em {{ post.when|date('d/m/Y') }}</p>
 
   <blockquote>
-    <p>{{ post.conteudo }}</p>
+    <p>{{ post.shout }}</p>
   </blockquote>
   {% include 'partials/tags.html.twig' with { 'tags': post.tags } %}
+  <br />
 {#  {% include 'partials/like.html.twig' with { 'likes': post.likes } %}#}
-{#  {% include 'partials/comments.html.twig' with { 'comentarios': post.comentarios } %}#}
+{#  {% include 'partials/comments.html.twig' with { 'comments': post.comments } %}#}
 </div>
 <hr />
 {% endfor %}

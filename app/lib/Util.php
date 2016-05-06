@@ -13,6 +13,11 @@ class Util {
      * @var \Plasticbrain\FlashMessages\FlashMessages Gerenciador de mensagens entre requisições.
      */
     protected static $flashMessage = null;
+    /**
+     *
+     * @var Repositorio
+     */
+    protected static $repositorio = null;
 
     /**
      * Retorna referência para o gerenciador de mensagens.
@@ -28,18 +33,33 @@ class Util {
         return self::$flashMessage;
     }
 
-    public static function checaRequisicao()
+    /**
+     * Retorna uma referência para o repositório de consultas.
+     *
+     * @return Repositorio
+     */
+    public static function getRepo()
     {
-        return isset($_REQUEST['acao']);
+        if (is_null(self::$repositorio)) {
+            self::$repositorio = new Repositorio();
+        }
+
+        return self::$repositorio;
     }
 
-    public static function processaRequisicao()
+
+    public static function checkRequest()
     {
-        $acao = self::nomeAcao($_REQUEST['acao']);
+        return isset($_REQUEST['action']);
+    }
+
+    public static function handleRequest()
+    {
+        $acao = self::nomeAcao($_REQUEST['action']);
         (new Requisicoes())
             ->$acao(filter_input(
                 INPUT_POST,
-                'dados',
+                'data',
                 FILTER_DEFAULT,
                 FILTER_REQUIRE_ARRAY
             ));
@@ -47,6 +67,25 @@ class Util {
 
     protected static function nomeAcao($acao)
     {
-        return 'acao' . str_replace('-', '', ucfirst($acao));
+        return 'action' . str_replace('-', '', ucfirst($acao));
+    }
+
+    public static function monthPtBr($month)
+    {
+        switch ($month)
+        {
+            case 1: return 'Jan';
+            case 2: return 'Feb';
+            case 3: return 'Mar';
+            case 4: return 'Abr';
+            case 5: return 'Mai';
+            case 6: return 'Jun';
+            case 7: return 'Jul';
+            case 8: return 'Ago';
+            case 9: return 'Set';
+            case 10: return 'Out';
+            case 11: return 'Nov';
+            case 12: return 'Dez';
+        }
     }
 }
