@@ -7,22 +7,57 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <title>PHongoDB Shoutbox</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-	      integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-    <!-- Custom styles for this template -->
-    <link href="css/template.css" rel="stylesheet">
+    <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/template.css">
+    <link rel="stylesheet" href="css/site.css">
   </head>
   <body>
     <div class="blog-masthead">
       <div class="container">
-        <nav class="blog-nav">
-          <a class="blog-nav-item active" href="/">Home</a>
-          <a class="blog-nav-item" href="#" data-toggle="modal" data-target="#novo-post"><span class="glyphicon glyphicon-bullhorn"></span> Shout!</a>
-          <a class="blog-nav-item" href="#"><span class="glyphicon glyphicon-fire"></span> Top 10</a>
-          <a class="blog-nav-item shoutbox-about" href="#"><span class="glyphicon glyphicon-search"></span> Buscar</a>
-          <a class="blog-nav-item shoutbox-about" href="#">About</a>
-        </nav>
+          <nav class="navbar navbar-blog">
+              <div class="navbar-header">
+                  <a class="navbar-brand blog-nav-item active" href="/"><span class="glyphicon glyphicon-home"></span></a>
+              </div>
+              <ul class="nav navbar-nav pull-right">
+                  <li>
+                      <a href="#" data-toggle="modal" data-target="#novo-post" class="blog-nav-item">
+                          <span class="glyphicon glyphicon-bullhorn"></span> Shout!
+                      </a>
+                  </li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle blog-nav-item" role="button" data-toggle="dropdown">
+                          <span class="glyphicon glyphicon-fire"></span> Top 10
+                          <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu">
+                          <li><a href="#"><span class="glyphicon glyphicon-comment"></span> Shouts mais comentados</a></li>
+                          <li><a href="#"><span class="glyphicon glyphicon-thumbs-up"></span> Shouts mais curtidos</a></li>
+                      </ul>
+                  </li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle blog-nav-item" role="button" data-toggle="dropdown">
+                          <span class="glyphicon glyphicon-search"></span> Pesquisar
+                          <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu">
+                          <li>
+                              <form class="navbar-form">
+                                  <div class="form-group" style="margin-bottom:5px">
+                                      <input type="text" class="form-control input-sm" placeholder="Busca" />
+                                  </div>
+                                  <br style="clear:both" />
+                                  <button type="submit" class="btn btn-default btn-sm pull-right">
+                                      <span class="glyphicon glyphicon-search"></span>
+                                  </button>
+                              </form>
+                          </li>
+                      </ul>
+                  </li>
+                  <li>
+                      <a class="shoutbox-about blog-nav-item" href="#"><span class="glyphicon glyphicon-info-sign"></span> About</a>
+                  </li>
+              </ul>
+          </nav>
       </div>
     </div>
     <div class="container">
@@ -64,6 +99,7 @@
             + '<br />Para mais detalhes e código completo acesse <a href="https://github.com/maykelsb/oficinamongo" target="_blank">maykelsb/oficinamongo</a> no GitHub.'
             );
         });
+        $('.dropdown-toggle').dropdown();
     });
     {% block javascript %}{% endblock %}
     </script>

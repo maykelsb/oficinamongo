@@ -1,0 +1,9 @@
+.navbar-blog{
+    margin-bottom:0!important
+}
+.nav .open>a,
+.nav .open>a:focus,
+.nav a:focus,
+.nav a:hover{
+    background-color:#337ab7!important
+}
