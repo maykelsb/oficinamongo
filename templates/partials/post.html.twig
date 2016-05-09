@@ -3,7 +3,7 @@
 {% endif %}
 
 {% for post in posts %}
-<div class="blog-post">
+<div class="blog-post well">
   <p class="blog-post-meta"><a href="?shouter={{ post.shouter }}">{{ post.shouter }}</a>
       soltou o verbo em <a href="?when={{ post.when|date('Y-m-d')|url_encode }}">{{ post.when|date('d/m/Y') }}</a>
   </p>
