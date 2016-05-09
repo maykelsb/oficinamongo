@@ -22,6 +22,32 @@ class Requisicoes
         die();
     }
 
+    public function actionPitaco(array $dados)
+    {
+        try {
+            $filter = ['_id' => new MongoDb\BSON\ObjectID($dados['postid'])];
+            unset($dados['postid']);
+
+            $dados = [
+                '$addToSet' => [
+                    'pitacos' => $dados
+                ]
+            ];
+
+            $db = Db::getInstance();
+            $db->update($filter, $dados);
+            $mensagem = 'Pitaco adicionado com sucesso.';
+            $metodo = 'success';
+        } catch (Exception $e) {
+            $mensagem = 'Não foi possível adicionar o novo pitaco. Motivo: ' . $e->getMessage();
+            $metodo = 'error';
+        }
+
+        Util::getFm()->$metodo($mensagem);
+        header("Location: /");
+        die();
+    }
+
     protected function tags(&$tags)
     {
         $tags = explode(',', $tags);
