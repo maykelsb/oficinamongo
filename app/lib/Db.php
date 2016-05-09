@@ -55,15 +55,6 @@ class Db
             $query
         );
 	}
-//
-//    public function command(array $document)
-//    {
-//        $command = new MongoDB\Driver\Command($document);
-//        return $this->manager->executeCommand(
-//            $this->dbName,
-//            $command
-//        );
-//    }
 
     public function insert(array $data, $collection = null)
     {
@@ -76,9 +67,15 @@ class Db
         );
     }
 
-    public function update($filter, array $data, $collection = null)
+    public function update($filter, array $data, array $options = [], $collection = null)
     {
+        $bulk = new MongoDB\Driver\BulkWrite();
+        $bulk->update($filter, $data, $options);
 
+        return $this->manager->executeBulkWrite(
+            $this->getNamespace($collection),
+            $bulk
+        );
     }
 
     public function delete($filter)
