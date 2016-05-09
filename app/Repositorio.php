@@ -37,8 +37,8 @@ class Repositorio
             $dateEnd->add(DateInterval::createFromDateString('1 day'));
 
             $filter['when'] = [
-                '$gte' => $dateStart->getTimestamp(),
-                '$lt' => $dateEnd->getTimestamp()
+                '$gte' => new MongoDB\BSON\UTCDateTime($dateStart->getTimestamp()),
+                '$lt' => new MongoDB\BSON\UTCDateTime($dateEnd->getTimestamp())
             ];
         }
 
