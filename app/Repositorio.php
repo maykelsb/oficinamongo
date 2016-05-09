@@ -23,13 +23,27 @@ class Repositorio
      * A lista é, por padrão, com ordenação descendente baseada
      * no campo when.
      *
-     * @param array $filter filtro de restrição dos posts listados
      * @return array
      */
-    public function listPosts(array $filter = [])
+    public function listPosts($filter = [])
     {
+        if (is_null($filter) || !is_array($filter)) {
+            $filter = [];
+        }
+
+        if (isset($filter['when'])) {
+            $dateStart = new DateTime($filter['when']);
+            $dateEnd = clone $dateStart;
+            $dateEnd->add(DateInterval::createFromDateString('1 day'));
+
+            $filter['when'] = [
+                '$gte' => $dateStart->getTimestamp(),
+                '$lt' => $dateEnd->getTimestamp()
+            ];
+        }
+
         return $this->db->query(
-            [],
+            $filter,
             ['sort' => ['when' => -1]]
         )->toArray();
     }
@@ -67,17 +81,58 @@ class Repositorio
 
     public function listTimeline()
     {
+//        return $this->db->aggregate([
+//            [
+//                '$group' => [
+//                    '_id' => '$when.getMonth()',
+//                    'qtd' => ['$sum' => 1]
+//                ]
+//            ]
+//        ])->toArray();
+
+
+
+
         return $this->db->aggregate([
-            [
-                '$group' => [
-                    '_id' => [
-                        'month' => ['$month' => '$when'],
-                        'year' => ['$year' => '$when']
-                    ],
-                    'qtd' => ['$sum' => 1]
-                ]
-            ],
-            ['$project' => ['_id' => 0, 'when' => '$_id', 'qtd' => 1]]
+            ['$project' => ['_id' => 0, 'when2' => '$when.toString()']]
+
+
+
+
+//            ['$group' => [
+//                '_id' => ['$dateToString' => ['format' => '%m/%Y', 'date' => '$when']]
+//            ]],
+//            ['$project' => ['_id' => 0, 'when' => '$_id']]
+
+
+//            ['$project' => [
+//                '_id' => 0,
+//                'when' => 1,
+////                'when2' => 'ISODate($when)'
+//            ]]
+//            ['$project' => ['_id' => 0, 'when' => 1]]
+//            ['$project' => ['_id' => 0, 'monyear' => ['$dateToString' => ['format' => '%m/%Y', 'date' => 'ISODate($when)']]]],
+//            [
+//                '$project' => [
+//                    '_id' => [
+//                        'month' => '$when.getMonth()',
+//                        'year' => '$when.getYear()'
+//                    ],
+//
+//                ]
+//            ],
+//            [
+//                '$group' => [
+////                    '_id' => '$monyear',
+////                    '_id' => [
+////                        'month' => ['$month' => '$when'],
+////                        'year' => ['$year' => '$when']
+////                    ],
+//                    '_id' => '$_id',
+//                    'qtd' => ['$sum' => 1]
+//                ]
+//            ],
+//            ['$project' => ['_id' => 0, 'when' => '$_id', 'qtd' => 1]]
         ])->toArray();
     }
 }
