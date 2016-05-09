@@ -70,6 +70,41 @@ class Requisicoes
         }
     }
 
+    public function actionTop10pitacados()
+    {
+        global $twig;
+
+        try {
+            $shouts = Util::getRepo()
+                ->top10Pitacados();
+
+            echo $twig->loadTemplate('partials/post.html.twig')
+                ->render(['posts' => $shouts]);
+
+            die();
+        } catch (Exception $e) {
+            die('<p class="danger">Não foi possível completar sua requisição. Motivo: ' . $e->getMessage() . '</p>');
+        }
+    }
+
+    public function actionTop10likes()
+    {
+        global $twig;
+
+        try {
+
+            $shouts = Util::getRepo()
+                ->top10Likes();
+
+            echo $twig->loadTemplate('partials/post.html.twig')
+                ->render(['posts' => $shouts]);
+
+            die();
+        } catch (Exception $e) {
+            die('<p class="danger">Não foi possível completar sua requisição. Motivo: ' . $e->getMessage() . '</p>');
+        }
+    }
+
     protected function tags(&$tags)
     {
         $tags = explode(',', $tags);

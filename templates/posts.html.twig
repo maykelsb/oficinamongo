@@ -23,4 +23,40 @@ $('.btn-like').click(function(){
         bootbox.alert('Não foi possível completar a requisição');
     });
 });
+$('.top10-comments').click(function(){
+    $.get('?action=top10-pitacados', {}, function(html){
+        bootbox.dialog({
+            title: '<span class="glyphicon glyphicon-comment"></span> Mais pitacados',
+            message: html,
+            size: 'large',
+            buttons: {
+                main: {
+                    label: 'Fechar',
+                    className: 'btn-danger',
+                }
+            },
+        });
+    
+    }, 'html').fail(function(){
+        bootbox.alert('Não foi possível completar a requisição');
+    });
+});
+$('.top10-likes').click(function(){
+    $.get('?action=top10-likes', {}, function(html){
+        bootbox.dialog({
+            title: '<span class="glyphicon glyphicon-thumbs-up"></span> Mais curtidos',
+            message: html,
+            size: 'large',
+            buttons: {
+                main: {
+                    label: 'Fechar',
+                    className: 'btn-danger',
+                }
+            },
+        });
+    
+    }, 'html').fail(function(){
+        bootbox.alert('Não foi possível completar a requisição');
+    });
+});
 {% endblock %}

@@ -30,8 +30,8 @@
                           <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu">
-                          <li><a href="#"><span class="glyphicon glyphicon-comment"></span> Shouts mais comentados</a></li>
-                          <li><a href="#"><span class="glyphicon glyphicon-thumbs-up"></span> Shouts mais curtidos</a></li>
+                          <li><a href="#" class="top10-likes"><span class="glyphicon glyphicon-thumbs-up"></span> Mais curtidos</a></li>
+                          <li><a href="#" class="top10-comments"><span class="glyphicon glyphicon-comment"></span> Mais pitacados</a></li>
                       </ul>
                   </li>
                   <li class="dropdown">
@@ -72,7 +72,7 @@
         {% endblock %}
         </div>
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-{#          {% include 'partials/sidebar/timeline.html.twig' with { 'timeline': timeline } %}#}
+          {% include 'partials/sidebar/timeline.html.twig' with { 'timeline': timeline } %}
           {% include 'partials/sidebar/shouters.html.twig' with { 'shouters': shouters } %}
           {% include 'partials/sidebar/tags.html.twig' with { 'tags': tags } %}
         </div>

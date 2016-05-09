@@ -30,6 +30,10 @@ class Db
         $this->manager = new MongoDB\Driver\Manager($connString);
     }
 
+    /**
+     *
+     * @return Db
+     */
     public static function getInstance()
     {
         if (is_null(self::$instance)) {

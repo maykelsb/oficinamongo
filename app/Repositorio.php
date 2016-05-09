@@ -136,4 +136,41 @@ class Repositorio
 //            ['$project' => ['_id' => 0, 'when' => '$_id', 'qtd' => 1]]
         ])->toArray();
     }
+
+    public function top10Pitacados()
+    {
+        return $this->db->aggregate([
+            ['$unwind' => ['path' => '$pitacos', 'preserveNullAndEmptyArrays' => true]],
+            ['$group' => [
+                '_id' => [
+                    'id' => '$_id',
+                    'when' => '$when',
+                    'likes' => '$likes',
+                    'shout' => '$shout',
+                    'shouter' => '$shouter'
+                ],
+                'pitacos' => ['$push' => '$pitacos'],
+                'size' => ['$sum' => 1]]],
+            ['$project' => [
+                '_id' => '$_id.id',
+                'when' => '$_id.when',
+                'likes' => '$_id.likes',
+                'pitacos' => '$pitacos',
+                'shout' => '$_id.shout',
+                'shouter' => '$_id.shouter',
+                'size' => '$size'
+                ]
+            ],
+            ['$sort' => ['size' => -1, 'pitacos' => -1, 'when' => -1]],
+            ['$limit' => 10],
+        ])->toArray();
+    }
+
+    public function top10Likes()
+    {
+        return $this->db->query(
+            [],
+            ['limit' => 10, 'sort' => ['likes' => -1, 'when' => -1]]
+        )->toArray();
+    }
 }
