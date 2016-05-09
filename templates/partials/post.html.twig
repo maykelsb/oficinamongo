@@ -13,9 +13,7 @@
   </blockquote>
   {% include 'partials/tags.html.twig' with { 'tags': post.tags } %}
   <br />
+  {% include 'partials/like.html.twig' with { 'likes': post.likes, postid: post._id } %}
   {% include 'partials/pitacos.html.twig' with { 'pitacos': post.pitacos, 'postid': post._id } %}
-{#  {% include 'partials/like.html.twig' with { 'likes': post.likes } %}#}
 </div>
 {% endfor %}
-
-

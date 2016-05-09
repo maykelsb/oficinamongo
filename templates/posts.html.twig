@@ -15,4 +15,12 @@ $('.btn-novo-pitaco').click(function(){
 $('.btn-salvar-pitaco').click(function(){
     $('#form-novo-pitaco').submit();
 });
+$('.btn-like').click(function(){
+    var postid = $(this).attr('data-postid');
+    $.post('?action=like', {'data[postid]': postid}, function(data){
+        $('#likes_' + postid).text(data.likes);
+    }, 'json').fail(function(){
+        bootbox.alert('Não foi possível completar a requisição');
+    });
+});
 {% endblock %}

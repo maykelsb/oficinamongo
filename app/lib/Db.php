@@ -83,15 +83,9 @@ class Db
 
     }
 
-    public function aggregate(array $pipeline, $cursorClass = 'stdClass', $collection = '')
+    public function command(array $command)
     {
-        $collection = empty($collection)?$this->dbDefaultCollection:$collection;
-
-        $command = new MongoDB\Driver\Command([
-            'aggregate' => $collection,
-            'pipeline' => $pipeline,
-            'cursor' => new $cursorClass()
-        ]);
+        $command = new MongoDB\Driver\Command($command);
 
         return $this->manager->executeCommand(
             $this->dbName,
@@ -99,6 +93,18 @@ class Db
         );
     }
 
+    public function aggregate(array $pipeline, $collection = '', $cursorClass = 'stdClass')
+    {
+        $collection = empty($collection)?$this->dbDefaultCollection:$collection;
+
+        $command = [
+            'aggregate' => $collection,
+            'pipeline' => $pipeline,
+            'cursor' => new $cursorClass()
+        ];
+
+        return $this->command($command);
+    }
 
     protected function getNamespace($collection)
     {
