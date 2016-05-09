@@ -16,7 +16,13 @@
         <li class="list-group-item active">Pitacos</li>
     {% for pitaco in pitacos %}
         <li class="list-group-item">
-            <h4 class="list-group-item-heading">#{{ loop.index }} {{ pitaco.pitaqueiro }} pitacou em {{ comment.when }}:</h4>
+            {% if pitaco.when is empty %}
+                {% set when = '???' %}
+            {% else %}
+                {% set when = pitaco.when|date('d/m/Y') %}
+            {% endif %}
+
+            <h4 class="list-group-item-heading">#{{ loop.index }} {{ pitaco.pitaqueiro }} pitacou em {{ when }}:</h4>
             <p class="list-group-item-text">{{ pitaco.pitaco }}</p>
         </li>
     {% endfor %}

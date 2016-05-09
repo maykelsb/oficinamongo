@@ -10,5 +10,5 @@ echo $twig->loadTemplate('posts.html.twig')->render([
     'timeline' => Util::getRepo()->listTimeline(),
     'posts' => Util::getRepo()->listPosts(filter_input_array(INPUT_GET)),
     'tags' => Util::getRepo()->topTags(),
-    'shouters' => Util::getRepo()->topShouters()
+    'shouters' => Util::getRepo()->top5Shouters()
 ]);

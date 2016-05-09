@@ -28,6 +28,8 @@ class Requisicoes
             $filter = ['_id' => new MongoDb\BSON\ObjectID($dados['postid'])];
             unset($dados['postid']);
 
+            $dados['when'] = $this->getNowUTCDateTime();
+
             $dados = [
                 '$addToSet' => [
                     'pitacos' => $dados

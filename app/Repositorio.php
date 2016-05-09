@@ -61,7 +61,7 @@ class Repositorio
             ['$unwind' => '$tags'],
             ['$group' => ['_id' => '$tags', 'qtd' => ['$sum' => 1]]],
             ['$project' => ['_id' => 0, 'tag' => '$_id', 'qtd' => 1]],
-            ['$sort' => ['qtd' => -1]]
+            ['$sort' => ['qtd' => -1, 'tag' => 1]]
         ])->toArray();
     }
 
@@ -70,12 +70,13 @@ class Repositorio
      * @return type
      * @todo Limitar para 5 shouters
      */
-    public function topShouters()
+    public function top5Shouters()
     {
         return $this->db->aggregate([
             ['$group' => [ '_id' => '$shouter', 'qtd' => ['$sum' => 1]]],
             ['$project' => ['_id' => 0, 'shouter' => '$_id', 'qtd' => 1]],
-            ['$sort' => ['qtd' => -1]]
+            ['$sort' => ['qtd' => -1, 'shouter' => 1]],
+            ['$limit' => 5]
         ])->toArray();
     }
 
