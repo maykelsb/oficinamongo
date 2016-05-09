@@ -20,6 +20,7 @@
           <a class="blog-nav-item active" href="/">Home</a>
           <a class="blog-nav-item" href="#" data-toggle="modal" data-target="#novo-post"><span class="glyphicon glyphicon-bullhorn"></span> Shout!</a>
           <a class="blog-nav-item" href="#"><span class="glyphicon glyphicon-fire"></span> Top 10</a>
+          <a class="blog-nav-item shoutbox-about" href="#"><span class="glyphicon glyphicon-search"></span> Buscar</a>
           <a class="blog-nav-item shoutbox-about" href="#">About</a>
         </nav>
       </div>
@@ -36,7 +37,7 @@
         {% endblock %}
         </div>
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-          {% include 'partials/sidebar/timeline.html.twig' with { 'timeline': timeline } %}
+{#          {% include 'partials/sidebar/timeline.html.twig' with { 'timeline': timeline } %}#}
           {% include 'partials/sidebar/shouters.html.twig' with { 'shouters': shouters } %}
           {% include 'partials/sidebar/tags.html.twig' with { 'tags': tags } %}
         </div>

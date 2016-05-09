@@ -4,17 +4,18 @@
 
 {% for post in posts %}
 <div class="blog-post">
-  <p class="blog-post-meta"><a href="?shouter={{ post.shouter }}">{{ post.shouter }}</a> soltou o verbo em {{ post.when|date('d/m/Y') }}</p>
+  <p class="blog-post-meta"><a href="?shouter={{ post.shouter }}">{{ post.shouter }}</a>
+      soltou o verbo em <a href="?when={{ post.when|date('Y-m-d')|url_encode }}">{{ post.when|date('d/m/Y') }}</a>
+  </p>
 
   <blockquote>
     <p>{{ post.shout }}</p>
   </blockquote>
   {% include 'partials/tags.html.twig' with { 'tags': post.tags } %}
   <br />
+  {% include 'partials/pitacos.html.twig' with { 'pitacos': post.pitacos, 'postid': post._id } %}
 {#  {% include 'partials/like.html.twig' with { 'likes': post.likes } %}#}
-{#  {% include 'partials/comments.html.twig' with { 'comments': post.comments } %}#}
 </div>
-<hr />
 {% endfor %}
 
 

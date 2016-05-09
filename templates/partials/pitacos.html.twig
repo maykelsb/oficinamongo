@@ -1,0 +1,25 @@
+<button class="btn btn-default btn-novo-pitaco" data-postid="{{ postid }}"><span class="glyphicon glyphicon-comment"></span> Dar pitaco</button>
+{% if 1 == pitacos|length %}
+{% set pitacos_label = 'Pitaco' %}
+{% else %}
+{% set pitacos_label = 'Pitacos' %}
+{% endif %}
+<button class="btn btn-default btn-toggle-pitacos" 
+        data-toggle="collapse" aria-controls="comm_{{ postid }}"
+        data-target="#comm_{{ postid }}"><span class="badge">{{ pitacos|length }}</span> {{ pitacos_label }}</button>
+<br />
+<div class="collapse" id="comm_{{ postid }}">
+{% if pitacos is empty %}
+    <p class="text-center"><< ninguém pitacou... ainda! >></p>
+{% else %}
+    <ul class="list-group" style="margin-top:5px">
+        <li class="list-group-item active">Pitacos</li>
+    {% for pitaco in pitacos %}
+        <li class="list-group-item">
+            <h4 class="list-group-item-heading">#{{ loop.index }} {{ pitaco.pitaqueiro }} pitacou em {{ comment.when }}:</h4>
+            <p class="list-group-item-text">{{ pitaco.pitaco }}</p>
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+</div>
