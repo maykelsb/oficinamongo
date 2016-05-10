@@ -79,7 +79,7 @@ class Requisicoes
                 ->top10Pitacados();
 
             echo $twig->loadTemplate('partials/post.html.twig')
-                ->render(['posts' => $shouts]);
+                ->render(['shouts' => $shouts, 'prefix' => 'toppitacados_']);
 
             die();
         } catch (Exception $e) {
@@ -96,7 +96,7 @@ class Requisicoes
             $shouts = Util::getRepo()
                 ->top10Likes();
             echo $twig->loadTemplate('partials/post.html.twig')
-                ->render(['posts' => $shouts]);
+                ->render(['shouts' => $shouts, 'prefix' => 'toplikes_']);
 
             die();
         } catch (Exception $e) {

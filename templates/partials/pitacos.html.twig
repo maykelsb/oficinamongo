@@ -6,9 +6,9 @@
 {% endif %}
 <button class="btn btn-default btn-toggle-pitacos" 
         data-toggle="collapse" aria-controls="comm_{{ postid }}"
-        data-target="#comm_{{ postid }}"><span class="badge">{{ pitacos|length }}</span> {{ pitacos_label }}</button>
+        data-target="#comm_{{ prefix }}{{ postid }}"><span class="badge">{{ pitacos|length }}</span> {{ pitacos_label }}</button>
 <br />
-<div class="collapse" id="comm_{{ postid }}">
+<div class="collapse" id="comm_{{ prefix }}{{ postid }}">
 {% if pitacos is empty %}
     <p class="text-center"><< ninguém pitacou... ainda! >></p>
 {% else %}

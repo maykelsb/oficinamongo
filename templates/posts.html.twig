@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block main %}
-  {% include 'partials/post.html.twig' with { 'posts': posts } %}
+  {% include 'partials/post.html.twig' with { 'shouts': shouts } %}
   {% include 'partials/modals/shout.html.twig' %}
   {% include 'partials/modals/pitaco.html.twig' %}
 {% endblock %}
@@ -8,22 +8,22 @@
 $('.btn-salvar-post').click(function(){
     $('#form-novo-post').submit();
 });
-$('.btn-novo-pitaco').click(function(){
+$('body').on('click', '.btn-novo-pitaco', function(){
     $('#postid').val($(this).attr('data-postid'));
     $('#novo-pitaco').modal();
 });
 $('.btn-salvar-pitaco').click(function(){
     $('#form-novo-pitaco').submit();
 });
-$('.btn-like').click(function(){
+$('body').on('click', '.btn-like', function(){
     var postid = $(this).attr('data-postid');
     $.post('?action=like', {'data[postid]': postid}, function(data){
-        $('#likes_' + postid).text(data.likes);
+        $('.likes_' + postid).text(data.likes);
     }, 'json').fail(function(){
         bootbox.alert('Não foi possível completar a requisição');
     });
 });
-$('.top10-comments').click(function(){
+$('body').on('click', '.top10-comments', function(){
     $.get('?action=top10-pitacados', {}, function(html){
         bootbox.dialog({
             title: '<span class="glyphicon glyphicon-comment"></span> Mais pitacados',
@@ -41,7 +41,7 @@ $('.top10-comments').click(function(){
         bootbox.alert('Não foi possível completar a requisição');
     });
 });
-$('.top10-likes').click(function(){
+$('body').on('click', '.top10-likes', function(){
     $.get('?action=top10-likes', {}, function(html){
         bootbox.dialog({
             title: '<span class="glyphicon glyphicon-thumbs-up"></span> Mais curtidos',

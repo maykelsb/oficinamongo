@@ -25,7 +25,7 @@ class Repositorio
      *
      * @return array
      */
-    public function listPosts($filter = [])
+    public function listShouts($filter = [])
     {
         $sort = ['sort' => ['when' => -1]];
 

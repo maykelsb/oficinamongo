@@ -8,7 +8,8 @@ if (Util::checkRequest()) {
 echo $twig->loadTemplate('posts.html.twig')->render([
     'fm' => Util::getFm(),
     'timeline' => Util::getRepo()->listTimeline(),
-    'posts' => Util::getRepo()->listPosts(filter_input_array(INPUT_GET)),
+    'filters' => filter_input_array(INPUT_GET),
+    'shouts' => Util::getRepo()->listShouts(filter_input_array(INPUT_GET)),
     'tags' => Util::getRepo()->topTags(),
     'shouters' => Util::getRepo()->top5Shouters()
 ]);

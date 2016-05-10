@@ -1,19 +1,31 @@
-{% if posts is empty%}
-    <div class="alert alert-info text-center" role="alert">Nenhum grito ainda!? clique logo em "<span class="glyphicon glyphicon-bullhorn"></span> Shout!" ali no topo ;)</div>
+{% if filters is not empty %}
+<div class="alert alert-success">
+    <p class="text-center">Exibindo registros que atendem ao filtro abaixo</p>
+    <p><strong>Filtro</strong>: {{ filters|keys[0] }}</p>
+    <p><strong>Valor</strong>: {{ filters[filters|keys[0]] }}</p>
+</div>
 {% endif %}
 
-{% for post in posts %}
+{% if shouts is empty%}
+    {% if filters is empty %}
+    <div class="alert alert-info text-center" role="alert">Nenhum grito ainda!? clique logo em "<span class="glyphicon glyphicon-bullhorn"></span> Shout!" ali no topo ;)</div>
+    {% else %}
+    <div class="alert alert-warning text-center" role="alert">Nenhum grito atende a essa pesquisa :(</div>
+    {% endif %}
+{% endif %}
+
+{% for shout in shouts %}
 <div class="blog-post well">
-  <p class="blog-post-meta"><a href="?shouter={{ post.shouter }}">{{ post.shouter }}</a>
-      soltou o verbo em <a href="?when={{ post.when|date('Y-m-d')|url_encode }}">{{ post.when|date('d/m/Y') }}</a>
+  <p class="blog-post-meta"><a href="?shouter={{ shout.shouter }}">{{ shout.shouter }}</a>
+      soltou o verbo em <a href="?when={{ shout.when|date('Y-m-d')|url_encode }}">{{ shout.when|date('d/m/Y') }}</a>
   </p>
 
   <blockquote>
-    <p>{{ post.shout }}</p>
+    <p>{{ shout.shout }}</p>
   </blockquote>
-  {% include 'partials/tags.html.twig' with { 'tags': post.tags } %}
+  {% include 'partials/tags.html.twig' with { 'tags': shout.tags } %}
   <br />
-  {% include 'partials/like.html.twig' with { 'likes': post.likes, postid: post._id } %}
-  {% include 'partials/pitacos.html.twig' with { 'pitacos': post.pitacos, 'postid': post._id } %}
+  {% include 'partials/like.html.twig' with { 'likes': shout.likes, postid: shout._id } %}
+  {% include 'partials/pitacos.html.twig' with { 'pitacos': shout.pitacos, 'postid': shout._id, prefix: prefix } %}
 </div>
 {% endfor %}

@@ -1,7 +1,7 @@
 {% if likes is empty %}
   {% set likes = '0' %}
 {% endif %}
-<span class="label label-success pull-right" style="font-size:20px" id="likes_{{ postid }}">{{ likes }}</span>
+<span class="label label-success pull-right likes_{{ postid }}" style="font-size:20px">{{ likes }}</span>
 <button class="btn btn-default btn-like" data-postid="{{ postid }}">
     <span class="glyphicon glyphicon-thumbs-up"></span>
 </button>
