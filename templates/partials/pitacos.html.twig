@@ -22,7 +22,9 @@
                 {% set when = pitaco.when|date('d/m/Y') %}
             {% endif %}
 
-            <h4 class="list-group-item-heading">#{{ loop.index }} {{ pitaco.pitaqueiro }} pitacou em {{ when }}:</h4>
+            <h4 class="list-group-item-heading">
+                #{{ loop.index }} <a href="?shouter={{ pitaco.pitaqueiro }}">{{ pitaco.pitaqueiro }}</a> pitacou em {{ when }}:
+            </h4>
             <p class="list-group-item-text">{{ pitaco.pitaco }}</p>
         </li>
     {% endfor %}

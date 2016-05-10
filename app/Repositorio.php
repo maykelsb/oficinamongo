@@ -41,13 +41,17 @@ class Repositorio
             return $this->listShoutsBySearch($filter, $sort);
         }
 
+        if (isset($filter['shouter'])) {
+            return $this->listShoutsByShouter($filter, $sort);
+        }
+
         return $this->db->query(
             $filter,
             $sort
         )->toArray();
     }
 
-    protected function listShoutsByWhen($filter, $sort)
+    protected function listShoutsByWhen(array $filter, array $sort)
     {
         $dateStart = new DateTime($filter['when']);
         $dateEnd = clone $dateStart;
@@ -64,7 +68,7 @@ class Repositorio
         )->toArray();
     }
 
-    protected function listShoutsBySearch($filter, $sort)
+    protected function listShoutsBySearch(array $filter, array $sort)
     {
         $filter = [
             '$text' => [
@@ -77,6 +81,21 @@ class Repositorio
             $filter,
             $sort
         )->toArray();
+    }
+
+    protected function listShoutsByShouter(array $filter, array $sort)
+    {
+        $filter = [
+            '$or' => [
+                ['shouter' => $filter['shouter']],
+                ['pitacos.pitaqueiro' => $filter['shouter']]
+            ]
+        ];
+
+        return $this->db->query(
+            $filter,
+            $sort
+        );
     }
 
     /**
