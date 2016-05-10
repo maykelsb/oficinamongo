@@ -27,24 +27,55 @@ class Repositorio
      */
     public function listPosts($filter = [])
     {
+        $sort = ['sort' => ['when' => -1]];
+
         if (is_null($filter) || !is_array($filter)) {
             $filter = [];
         }
 
         if (isset($filter['when'])) {
-            $dateStart = new DateTime($filter['when']);
-            $dateEnd = clone $dateStart;
-            $dateEnd->add(DateInterval::createFromDateString('1 day'));
+            return $this->listShoutsByWhen($filter, $sort);
+        }
 
-            $filter['when'] = [
-                '$gte' => new MongoDB\BSON\UTCDateTime($dateStart->getTimestamp()),
-                '$lt' => new MongoDB\BSON\UTCDateTime($dateEnd->getTimestamp())
-            ];
+        if (isset($filter['search'])) {
+            return $this->listShoutsBySearch($filter, $sort);
         }
 
         return $this->db->query(
             $filter,
-            ['sort' => ['when' => -1]]
+            $sort
+        )->toArray();
+    }
+
+    protected function listShoutsByWhen($filter, $sort)
+    {
+        $dateStart = new DateTime($filter['when']);
+        $dateEnd = clone $dateStart;
+        $dateEnd->add(DateInterval::createFromDateString('1 day'));
+
+        $filter['when'] = [
+            '$gte' => new MongoDB\BSON\UTCDateTime($dateStart->getTimestamp()),
+            '$lt' => new MongoDB\BSON\UTCDateTime($dateEnd->getTimestamp())
+        ];
+
+        return $this->db->query(
+            $filter,
+            $sort
+        )->toArray();
+    }
+
+    protected function listShoutsBySearch($filter, $sort)
+    {
+        $filter = [
+            '$text' => [
+                '$search' => $filter['search'],
+                '$caseSensitive' => false
+            ]
+        ];
+
+        return $this->db->query(
+            $filter,
+            $sort
         )->toArray();
     }
 

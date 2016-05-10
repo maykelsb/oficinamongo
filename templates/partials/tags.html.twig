@@ -1,7 +1,7 @@
 {% if tags is not empty %}
     {% if tags is iterable %}
         {% for tag in tags %}
-            <a href="?tag={{ tag }}">#{{ tag }}</a>
+            <a href="?tags={{ tag }}">#{{ tag }}</a>
         {% endfor %}
     {% else %}
         #{{ tags|split(',')|join(' #') }}

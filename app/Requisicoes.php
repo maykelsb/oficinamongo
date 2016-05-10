@@ -95,7 +95,6 @@ class Requisicoes
 
             $shouts = Util::getRepo()
                 ->top10Likes();
-
             echo $twig->loadTemplate('partials/post.html.twig')
                 ->render(['posts' => $shouts]);
 
