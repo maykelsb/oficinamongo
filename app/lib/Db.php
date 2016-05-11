@@ -52,12 +52,7 @@ class Db
 
 	public function query(array $filter = [], array $options = [], $collection = null)
 	{
-        $query = new MongoDB\Driver\Query($filter, $options);
-
-		return $this->manager->executeQuery(
-            $this->getNamespace($collection),
-            $query
-        );
+        throw new Exception('Db::query() não implementado.');
 	}
 
     public function insert(array $data, $collection = null)
