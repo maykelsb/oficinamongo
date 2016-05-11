@@ -27,7 +27,7 @@ class Repositorio
      */
     public function listShouts($filter = [])
     {
-        $sort = ['sort' => ['when' => -1]];
+        $sort = [];
 
         if (is_null($filter) || !is_array($filter)) {
             $filter = [];
@@ -45,57 +45,22 @@ class Repositorio
             return $this->listShoutsByShouter($filter, $sort);
         }
 
-        return $this->db->query(
-            $filter,
-            $sort
-        )->toArray();
+        return [];
     }
 
     protected function listShoutsByWhen(array $filter, array $sort)
     {
-        $dateStart = new DateTime($filter['when']);
-        $dateEnd = clone $dateStart;
-        $dateEnd->add(DateInterval::createFromDateString('1 day'));
-
-        $filter['when'] = [
-            '$gte' => new MongoDB\BSON\UTCDateTime($dateStart->getTimestamp()),
-            '$lt' => new MongoDB\BSON\UTCDateTime($dateEnd->getTimestamp())
-        ];
-
-        return $this->db->query(
-            $filter,
-            $sort
-        )->toArray();
+        return [];
     }
 
     protected function listShoutsBySearch(array $filter, array $sort)
     {
-        $filter = [
-            '$text' => [
-                '$search' => $filter['search'],
-                '$caseSensitive' => false
-            ]
-        ];
-
-        return $this->db->query(
-            $filter,
-            $sort
-        )->toArray();
+        return [];
     }
 
     protected function listShoutsByShouter(array $filter, array $sort)
     {
-        $filter = [
-            '$or' => [
-                ['shouter' => $filter['shouter']],
-                ['pitacos.pitaqueiro' => $filter['shouter']]
-            ]
-        ];
-
-        return $this->db->query(
-            $filter,
-            $sort
-        );
+        return [];
     }
 
     /**
