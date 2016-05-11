@@ -30,11 +30,7 @@ class Requisicoes
 
             $dados['when'] = $this->getNowUTCDateTime();
 
-            $dados = [
-                '$addToSet' => [
-                    'pitacos' => $dados
-                ]
-            ];
+            $dados = [];
 
             $db = Db::getInstance();
             $db->update($filter, $dados);
@@ -54,13 +50,8 @@ class Requisicoes
     {
         try {
             $db = Db::getInstance();
-            $dadosUpdate = $db->command([
-                'findAndModify' => 'blog',
-                'query' => ['_id' => new MongoDb\BSON\ObjectID($dados['postid'])],
-                'update' => ['$inc' => ['likes' => 1]],
-                'fields' => ['likes' => 1, '_id' => 0],
-                'new' => 1 // -- Importante para retornar o registro atualizado
-            ])->toArray();
+
+            throw new Exception('Command não implementado');
 
             die(json_encode([
                 'likes' => $dadosUpdate[0]->value->likes

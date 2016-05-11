@@ -62,24 +62,12 @@ class Db
 
     public function insert(array $data, $collection = null)
     {
-        $bulk = new MongoDB\Driver\BulkWrite();
-        $bulk->insert($data);
-
-        return $this->manager->executeBulkWrite(
-            $this->getNamespace($collection),
-            $bulk
-        );
+        throw new Exception('Db::insert() não implementado.');
     }
 
     public function update($filter, array $data, array $options = [], $collection = null)
     {
-        $bulk = new MongoDB\Driver\BulkWrite();
-        $bulk->update($filter, $data, $options);
-
-        return $this->manager->executeBulkWrite(
-            $this->getNamespace($collection),
-            $bulk
-        );
+        throw new Exception('Db::update() não implementado.');
     }
 
     public function delete($filter)
@@ -89,25 +77,14 @@ class Db
 
     public function command(array $command)
     {
-        $command = new MongoDB\Driver\Command($command);
-
-        return $this->manager->executeCommand(
-            $this->dbName,
-            $command
-        );
+        throw new Exception('Db::command() não implementado.');
     }
 
     public function aggregate(array $pipeline, $collection = '', $cursorClass = 'stdClass')
     {
         $collection = empty($collection)?$this->dbDefaultCollection:$collection;
 
-        $command = [
-            'aggregate' => $collection,
-            'pipeline' => $pipeline,
-            'cursor' => new $cursorClass()
-        ];
-
-        return $this->command($command);
+        throw new Exception('Db::aggregate() não implementado.');
     }
 
     protected function getNamespace($collection)
