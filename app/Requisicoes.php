@@ -18,7 +18,7 @@ class Requisicoes
         }
 
         Util::getFm()->$metodo($mensagem);
-        header("Location: /");
+        header("Location: ./");
         die();
     }
 
@@ -42,7 +42,7 @@ class Requisicoes
         }
 
         Util::getFm()->$metodo($mensagem);
-        header("Location: /");
+        header("Location: ./");
         die();
     }
 
