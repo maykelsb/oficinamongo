@@ -25,7 +25,7 @@
   </blockquote>
   {% include 'partials/tags.html.twig' with { 'tags': shout.tags } %}
   <br />
-  {% include 'partials/like.html.twig' with { 'likes': shout.likes, postid: shout._id } %}
-  {% include 'partials/pitacos.html.twig' with { 'pitacos': shout.pitacos, 'postid': shout._id, prefix: prefix } %}
+{#  {% include 'partials/like.html.twig' with { 'likes': shout.likes, postid: shout._id } %}#}
+{#  {% include 'partials/pitacos.html.twig' with { 'pitacos': shout.pitacos, 'postid': shout._id, prefix: prefix } %}#}
 </div>
 {% endfor %}
