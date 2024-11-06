@@ -1,6 +1,6 @@
 {
     "require": {
-        "twig/twig": "~1.0",
+        "twig/twig": "~3.11",
         "plasticbrain/php-flash-messages": "^1.0"
     },
     "require-dev": {
